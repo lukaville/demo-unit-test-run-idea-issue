@@ -1,0 +1,2 @@
+include ':library-main'
+include ':library-test'

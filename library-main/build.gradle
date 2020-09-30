@@ -1,0 +1,33 @@
+import com.android.build.gradle.internal.api.VariantFilter
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+    }
+
+    testBuildType "release"
+
+    variantFilter { VariantFilter variant ->
+        if (variant.buildType.name != "release") {
+            setIgnore(true)
+        }
+    }
+
+    buildTypes {
+        release {
+            initWith debug
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation project(":library-test")
+}
